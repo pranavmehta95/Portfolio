@@ -546,7 +546,7 @@ window.addEventListener('scroll', requestScrollTick);
 
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
-    const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+    const sections = ['home', 'skills', 'projects', 'contact'];
     const currentIndex = sections.indexOf(currentSection);
     
     if (e.key === 'ArrowDown' && currentIndex < sections.length - 1) {
@@ -576,7 +576,7 @@ function handleSwipe() {
     const diff = touchStartY - touchEndY;
     
     if (Math.abs(diff) > swipeThreshold) {
-        const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+        const sections = ['home', 'skills', 'projects', 'contact'];
         const currentIndex = sections.indexOf(currentSection);
         
         if (diff > 0 && currentIndex < sections.length - 1) {
