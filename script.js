@@ -1,6 +1,7 @@
 // Global variables
 let canvas, ctx;
 let particles = [];
+let cursorParticles = [];
 let mouse = { x: 0, y: 0 };
 let currentSection = 'home';
 
@@ -43,6 +44,9 @@ function initInteractiveBackground() {
     document.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+        
+        // Create cursor following particles
+        createCursorParticle(e.clientX, e.clientY);
     });
     
     // Resize event
@@ -70,10 +74,35 @@ function createParticles() {
     }
 }
 
+// Create cursor following particles
+function createCursorParticle(x, y) {
+    // Limit the number of cursor particles
+    if (cursorParticles.length > 15) {
+        cursorParticles.shift();
+    }
+    
+    // Create new cursor particle
+    cursorParticles.push({
+        x: x + (Math.random() - 0.5) * 20,
+        y: y + (Math.random() - 0.5) * 20,
+        targetX: x,
+        targetY: y,
+        size: Math.random() * 3 + 1,
+        opacity: 0.8,
+        life: 1.0,
+        decay: 0.02 + Math.random() * 0.02,
+        color: {
+            r: 102 + Math.random() * 50,
+            g: 126 + Math.random() * 50,
+            b: 234 + Math.random() * 21
+        }
+    });
+}
+
 function animateBackground() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Update and draw particles
+    // Update and draw background particles
     particles.forEach((particle, index) => {
         // Move particle
         particle.x += particle.vx;
@@ -115,6 +144,61 @@ function animateBackground() {
                 ctx.moveTo(particle.x, particle.y);
                 ctx.lineTo(otherParticle.x, otherParticle.y);
                 ctx.strokeStyle = `rgba(102, 126, 234, ${0.1 * (1 - distance / 100)})`;
+                ctx.stroke();
+            }
+        });
+    });
+    
+    // Update and draw cursor particles
+    cursorParticles.forEach((particle, index) => {
+        // Move towards target with some lag
+        const dx = particle.targetX - particle.x;
+        const dy = particle.targetY - particle.y;
+        
+        particle.x += dx * 0.1;
+        particle.y += dy * 0.1;
+        
+        // Add some random movement
+        particle.x += (Math.random() - 0.5) * 2;
+        particle.y += (Math.random() - 0.5) * 2;
+        
+        // Update life
+        particle.life -= particle.decay;
+        particle.opacity = particle.life * 0.8;
+        
+        // Remove dead particles
+        if (particle.life <= 0) {
+            cursorParticles.splice(index, 1);
+            return;
+        }
+        
+        // Draw cursor particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.opacity})`;
+        ctx.fill();
+        
+        // Add glow effect
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size * particle.life * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.opacity * 0.2})`;
+        ctx.fill();
+    });
+    
+    // Draw connections between cursor particles
+    cursorParticles.forEach((particle, index) => {
+        cursorParticles.slice(index + 1).forEach(otherParticle => {
+            const dx = particle.x - otherParticle.x;
+            const dy = particle.y - otherParticle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 50) {
+                ctx.beginPath();
+                ctx.moveTo(particle.x, particle.y);
+                ctx.lineTo(otherParticle.x, otherParticle.y);
+                const opacity = (1 - distance / 50) * particle.opacity * otherParticle.opacity;
+                ctx.strokeStyle = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${opacity * 0.3})`;
+                ctx.lineWidth = 1;
                 ctx.stroke();
             }
         });
