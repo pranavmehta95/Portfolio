@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Interactive Experience</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="skills-animation.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -149,109 +150,141 @@
 
         <!-- Skills Section -->
         <section id="skills" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Skills & Technologies</h2>
-                    <div class="section-subtitle">What I work with</div>
-                </div>
+            <div class="skills-container">
                 <div class="skills-content">
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h3>Frontend</h3>
-                            <div class="animated-list skills-list">
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-html5"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">HTML5</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="95%"></div>
-                                        </div>
-                                    </div>
+                    <!-- Skills Animation -->
+                    <div class="skills-animation-container">
+                        <div class="developer-scene">
+                            <!-- Desk -->
+                            <div class="desk"></div>
+                            
+                            <!-- Chair -->
+                            <div class="chair">
+                                <div class="chair-back"></div>
+                                <div class="chair-seat"></div>
+                                <div class="chair-leg"></div>
+                            </div>
+                            
+                            <!-- Character -->
+                            <div class="character">
+                                <!-- Head -->
+                                <div class="head">
+                                    <div class="hair"></div>
                                 </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-css3-alt"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">CSS3</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="90%"></div>
-                                        </div>
-                                    </div>
+                                
+                                <!-- Torso -->
+                                <div class="torso"></div>
+                                
+                                <!-- Arms -->
+                                <div class="arm-left">
+                                    <div class="hand-left"></div>
                                 </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-js-square"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">JavaScript</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="88%"></div>
-                                        </div>
-                                    </div>
+                                <div class="arm-right">
+                                    <div class="hand-right"></div>
                                 </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-react"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">React</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="85%"></div>
-                                        </div>
-                                    </div>
+                            </div>
+                            
+                            <!-- Laptop -->
+                            <div class="laptop">
+                                <div class="laptop-base"></div>
+                                <div class="laptop-screen">
+                                    <div class="code-line"></div>
+                                    <div class="code-line"></div>
+                                    <div class="code-line"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cat -->
+                            <div class="cat">
+                                <div class="cat-body"></div>
+                                <div class="cat-head">
+                                    <div class="cat-ears"></div>
+                                </div>
+                                <div class="cat-tail"></div>
+                            </div>
+                            
+                            <!-- Coffee Cup (Optional) -->
+                            <div class="coffee-cup">
+                                <div class="coffee-steam">
+                                    <div class="steam-particle"></div>
+                                    <div class="steam-particle"></div>
+                                    <div class="steam-particle"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="skill-category">
-                            <h3>Backend</h3>
-                            <div class="animated-list skills-list">
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-node-js"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">Node.js</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="82%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fab fa-python"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">Python</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="80%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fas fa-database"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">MongoDB</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="75%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="skill-item">
-                                    <div class="skill-icon">
-                                        <i class="fas fa-server"></i>
-                                    </div>
-                                    <div class="skill-info">
-                                        <span class="skill-name">Express.js</span>
-                                        <div class="skill-bar">
-                                            <div class="skill-progress" data-width="78%"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+
+                    <div class="skills-text-content">
+                        <h1 class="skills-title">What I do</h1>
+                        <p class="skills-subtitle">Crazy full‑stack developer who wants to explore every tech stack</p>
+                        
+                        <div class="skills-icons-grid">
+                            <div class="skill-icon-item">
+                                <i class="fab fa-html5"></i>
+                                <span class="skill-caption">HTML5</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-css3-alt"></i>
+                                <span class="skill-caption">CSS3</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-sass"></i>
+                                <span class="skill-caption">SASS</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-js-square"></i>
+                                <span class="skill-caption">JAVASCRIPT</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-react"></i>
+                                <span class="skill-caption">REACT</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-node-js"></i>
+                                <span class="skill-caption">NODE.JS</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-swift"></i>
+                                <span class="skill-caption">SWIFT</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-npm"></i>
+                                <span class="skill-caption">NPM</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fas fa-database"></i>
+                                <span class="skill-caption">SQL/DATABASE</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-aws"></i>
+                                <span class="skill-caption">AWS</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fas fa-fire"></i>
+                                <span class="skill-caption">FIREBASE</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-python"></i>
+                                <span class="skill-caption">PYTHON</span>
+                            </div>
+                            <div class="skill-icon-item">
+                                <i class="fab fa-docker"></i>
+                                <span class="skill-caption">DOCKER</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skills-features">
+                            <div class="feature-item">
+                                <span class="lightning-icon">⚡</span>
+                                <span class="feature-text">Develop highly interactive Front‑end / User Interfaces for web and mobile applications.</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="lightning-icon">⚡</span>
+                                <span class="feature-text">Progressive Web Applications (PWA) in normal and SPA stacks.</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="lightning-icon">⚡</span>
+                                <span class="feature-text">Integration of third‑party services such as Firebase / AWS / DigitalOcean.</span>
                             </div>
                         </div>
                     </div>
