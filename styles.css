@@ -444,6 +444,78 @@ body {
     animation: fadeInUp 1s ease 0.2s both;
 }
 
+/* Waving Hand Animation */
+.waving-hand {
+    display: inline-block;
+    font-size: 1em;
+    transform-origin: 70% 70%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* No initial animation - will be added via JavaScript */
+}
+
+.waving-hand.initial-wave {
+    animation: wave 0.8s ease-in-out 4; /* Wave 4 times on initial load */
+}
+
+.waving-hand.interactive-wave {
+    animation: waveHover 0.6s ease-in-out 3; /* Wave 3 times on interaction */
+}
+
+.waving-hand:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+}
+
+.waving-hand:hover:not(.initial-wave):not(.interactive-wave) {
+    animation: waveHover 0.6s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: rotate(14deg);
+    }
+    20%, 40%, 60%, 80% {
+        transform: rotate(-8deg);
+    }
+}
+
+@keyframes waveHover {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
+/* Add a subtle glow effect */
+.waving-hand::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.waving-hand:hover::before {
+    opacity: 1;
+}
+
 .hero-subtitle {
     font-size: 1.25rem;
     line-height: 1.6;

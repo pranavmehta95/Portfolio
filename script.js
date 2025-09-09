@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initIntersectionObserver();
     initMobileOptimizations();
+    initWavingHand();
 });
 
 // Loading Animation
@@ -795,4 +796,162 @@ if (isMobile) {
 } else {
     document.documentElement.style.setProperty('--mobile-padding', '2rem');
     document.documentElement.style.setProperty('--mobile-font-size', '1rem');
+}
+
+// Waving Hand Interactive Features
+function initWavingHand() {
+    const wavingHand = document.querySelector('.waving-hand');
+    if (!wavingHand) return;
+    
+    let isWaving = false;
+    let hasInitialWaved = false;
+    
+    // Initial welcome wave (3-4 seconds after page load)
+    setTimeout(() => {
+        if (!hasInitialWaved) {
+            hasInitialWaved = true;
+            isWaving = true;
+            wavingHand.classList.add('initial-wave');
+            
+            // Remove initial wave class after animation completes
+            setTimeout(() => {
+                wavingHand.classList.remove('initial-wave');
+                isWaving = false;
+            }, 3200); // 4 waves × 0.8s = 3.2s
+        }
+    }, 1000); // Start waving 1 second after page load
+    
+    // Enhanced click interaction
+    wavingHand.addEventListener('click', () => {
+        if (isWaving) return;
+        
+        isWaving = true;
+        wavingHand.classList.add('interactive-wave');
+        
+        // Create sparkle effect
+        createSparkleEffect(wavingHand);
+        
+        // Reset after animation
+        setTimeout(() => {
+            wavingHand.classList.remove('interactive-wave');
+            isWaving = false;
+        }, 1800); // 3 waves × 0.6s = 1.8s
+    });
+    
+    // Mouse enter - faster waving (only if not currently waving)
+    wavingHand.addEventListener('mouseenter', () => {
+        if (!isMobile && !isWaving) {
+            wavingHand.classList.add('interactive-wave');
+            isWaving = true;
+            
+            setTimeout(() => {
+                wavingHand.classList.remove('interactive-wave');
+                isWaving = false;
+            }, 1800);
+        }
+    });
+    
+    // Touch support for mobile
+    if (isMobile) {
+        wavingHand.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (isWaving) return;
+            
+            isWaving = true;
+            wavingHand.classList.add('interactive-wave');
+            wavingHand.style.transform = 'scale(1.3)';
+            
+            // Create mobile sparkle effect
+            createSparkleEffect(wavingHand);
+            
+            // Haptic feedback if available
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            setTimeout(() => {
+                wavingHand.classList.remove('interactive-wave');
+                wavingHand.style.transform = '';
+                isWaving = false;
+            }, 1800);
+        }, { passive: false });
+    }
+    
+    // No random waving - only on page load and user interaction
+}
+
+// Create sparkle effect around the hand
+function createSparkleEffect(element) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create multiple sparkle particles
+    for (let i = 0; i < 12; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = centerX + 'px';
+        sparkle.style.top = centerY + 'px';
+        sparkle.style.width = '6px';
+        sparkle.style.height = '6px';
+        sparkle.style.background = `hsl(${45 + Math.random() * 30}, 100%, 70%)`;
+        sparkle.style.borderRadius = '50%';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '9999';
+        sparkle.style.boxShadow = '0 0 6px currentColor';
+        
+        document.body.appendChild(sparkle);
+        
+        // Animate sparkle
+        const angle = (i / 12) * Math.PI * 2;
+        const distance = 30 + Math.random() * 40;
+        const targetX = centerX + Math.cos(angle) * distance;
+        const targetY = centerY + Math.sin(angle) * distance;
+        
+        sparkle.animate([
+            { 
+                transform: 'translate(0, 0) scale(0) rotate(0deg)', 
+                opacity: 1 
+            },
+            { 
+                transform: `translate(${(targetX - centerX) * 0.5}px, ${(targetY - centerY) * 0.5}px) scale(1) rotate(180deg)`, 
+                opacity: 1,
+                offset: 0.5
+            },
+            { 
+                transform: `translate(${targetX - centerX}px, ${targetY - centerY}px) scale(0) rotate(360deg)`, 
+                opacity: 0 
+            }
+        ], {
+            duration: 800 + Math.random() * 400,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => {
+            sparkle.remove();
+        };
+    }
+    
+    // Add a golden glow effect
+    const glow = document.createElement('div');
+    glow.style.position = 'fixed';
+    glow.style.left = (centerX - 30) + 'px';
+    glow.style.top = (centerY - 30) + 'px';
+    glow.style.width = '60px';
+    glow.style.height = '60px';
+    glow.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%)';
+    glow.style.borderRadius = '50%';
+    glow.style.pointerEvents = 'none';
+    glow.style.zIndex = '9998';
+    
+    document.body.appendChild(glow);
+    
+    glow.animate([
+        { opacity: 0, transform: 'scale(0.5)' },
+        { opacity: 1, transform: 'scale(1.5)' },
+        { opacity: 0, transform: 'scale(2)' }
+    ], {
+        duration: 600,
+        easing: 'ease-out'
+    }).onfinish = () => {
+        glow.remove();
+    };
 }
