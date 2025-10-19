@@ -246,7 +246,7 @@ function initNavigation() {
         navMenu.classList.toggle('active');
     });
     
-    // Navigation links
+    // Navigation links.
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
