@@ -817,7 +817,7 @@ function initWavingHand() {
             setTimeout(() => {
                 wavingHand.classList.remove('initial-wave');
                 isWaving = false;
-            }, 3200); // 4 waves × 0.8s = 3.2s
+            }, 3200); // 4 waves of 0.8 sec and then it will flikers.
         }
     }, 1000); // Start waving 1 second after page load
     
