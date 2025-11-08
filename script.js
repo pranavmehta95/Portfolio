@@ -942,7 +942,7 @@ function createSparkleEffect(element) {
     glow.style.pointerEvents = 'none';
     glow.style.zIndex = '9998';
     
-    document.body.appendChild(glow);
+    document.body.appendChild(glow);  
     
     glow.animate([
         { opacity: 0, transform: 'scale(0.5)' },
